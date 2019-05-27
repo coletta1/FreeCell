@@ -83,23 +83,19 @@ public class Game{
     deck.shuffle();
     deck.shuffle();
     boolean b = true;
-    while(tableauList.get(7).size()<7){
-      for (int i =3; i>=0; i--){
+    while(tableauList.get(7).size()<6){
+      for (int i =7; i>=0; i--){
         Card card = deck.deal();
         card.turn();
         tableauList.get(i).add(card);
       }
-      if(!(deck.isEmpty())){
-        for (int i =7; i>=4; i--){
+      if (tableauList.get(7).size()==6){
+        for (int i =3; i>=0; i--){
           Card card = deck.deal();
           card.turn();
           tableauList.get(i).add(card);
         }
       }
-      else{
-        break;
-      }
-
     }
   }
 
