@@ -151,7 +151,10 @@ abstract public class AbstractCell<Card> implements CellInterface<Card>{
     }
     return cardsString;
   }
-
+  /** Creates an iterator of list of cards **/
+  public Iterator<Card> iterator(){
+    return cards.iterator();
+  }
   /**
    * The clear method removes all of the cardsString
    */

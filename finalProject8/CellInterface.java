@@ -13,7 +13,7 @@ import java.util.Collection;
 import propackage.*;
 import java.util.*;
 
-public interface CellInterface<Card>{
+public interface CellInterface<Card> extends Iterable<Card>{
 
   /**
    * The size() method returns the size of the cell
@@ -39,6 +39,11 @@ public interface CellInterface<Card>{
   */
   public ArrayList<Card> getCell();
 
+  /**
+   * Returns iterator over cards
+   * @return iterator
+   */
+  public Iterator<Card> iterator();
 
   /**
    * The add method adds a card to a cell.
