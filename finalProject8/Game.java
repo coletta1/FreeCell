@@ -165,6 +165,7 @@ public class Game{
       this.tableauGet(i).clear();
       }
     }
+    moveCounter = 0;
     dealCards();
   }
 
