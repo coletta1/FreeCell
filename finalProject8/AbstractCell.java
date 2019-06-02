@@ -105,13 +105,13 @@ abstract public class AbstractCell<Card> implements CellInterface<Card>{
    * The remove() method functions in the same way as a stack's pop method
    * @return card an object of type Card that has just been removed from a cell
    */
-  public Card remove(){
+  public Card remove(Card c){
     if(cards.isEmpty() == true){
       throw new NullPointerException("You cannot remove from an empty list");
     }
     else{
-      Card card = cards.get(cards.size()-1);
-      cards.remove(cards.size()-1);
+      Card card = cards.get(c);
+      cards.remove(c);
       return card;
     }
   }
@@ -132,11 +132,17 @@ abstract public class AbstractCell<Card> implements CellInterface<Card>{
    */
   public Card get(int i){
     if(i<0){
-      return cards.get(0);
+      return card;
     }
     else{
       return cards.get(i);
     }
+  }
+  /**
+   * Returns card at end of list
+   */
+  public Card peek(){
+    return cards.get(this.size() - 1);
   }
 
 

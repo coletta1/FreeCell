@@ -15,18 +15,14 @@ import java.util.*;
 
 public class Tableau extends AbstractCell<Card>{
 	private CellInterface<Card> tcell;
-	private ArrayList<Card> tempList;
-	/**
+	 /**
    * Constructs a Tableau
 	 */
 	public Tableau() {
 		super();
-		this.tempList = new ArrayList<Card>();
-
-
 	}
 
-	/**
+	 /**
 	 * The get method returns the item at a certain index
 	 * @param i integer index
 	 * @return The item at the index i
@@ -35,8 +31,17 @@ public class Tableau extends AbstractCell<Card>{
 		return cards.get(i);
 	}
 
-
-
+	/**
+   * Returns card at end of list/ bottom of tableau
+   */
+  public Card peek(){
+    if (!this.isEmpty()){
+			return cards.get(this.size() - 1);
+  	}
+		else{
+			return null;
+		}
+	}
 	 /**
 	  * The inOrder function checks if a card of one tableau can be moved onto that of another cell
 	  * @return true if the card can be moved and false otherwise
@@ -62,66 +67,90 @@ public class Tableau extends AbstractCell<Card>{
 	   }
 	 }
 
+	 public ArrayList<Card> getTempList(Card c){
+		 ArrayList<Card> tempList = new ArrayList<Card>();
+		 Card currentCard = null;
+		 Card nextCard = null;
+		 ArrayList<Card> reversed = new ArrayList<Card>();
+
+		 for (int i = cards.size()-1; i > -1; i --) {
+			nextCard = cards.get(i);
+
+			if (reversed.isEmpty()) {
+				reversed.add(nextCard);
+				currentCard = nextCard;
+				if (!(c == null) && (!nextCard.colorComparison(c)==false) && (nextCard.rankComparison(c)==-1)) {
+					break;
+				}
+			}
+			else if (((currentCard.rankComparison(nextCard)==-1)&&(currentCard.colorComparison(nextCard) == false))){
+				if ((!(c == null) && (!nextCard.rankComparison(c)==-1))&&(nextCard.colorComparison(c) == false)) {
+						reversed.add(nextCard);
+						break;
+				}
+				else {
+					reversed.add(nextCard);
+					currentCard = nextCard;
+				}
+			}
+			else {
+				break;
+			}
+
+		}
+		for (int i = reversed.size()-1; i > -1; i --) {
+			tempList.add(reversed.get(i));
+		}
+
+		return tempList;
+
+		}
 	/**
 	 * This method checks if cards or a group of cards can be moved.
 	 * @return true or false depending on if the cards can be moved.
 	 */
-  public boolean moveFrom(CellInterface<Card> source){
-		int i =1;
-		int j = 2;
+  public boolean moveFrom(CellInterface<Card> source) {
+		ArrayList<Card> tempList = new ArrayList<Card>();
+		Card sourceCard = null;
+		Card topCard = this.peek();
 
-		Card sourceCard1 = source.get(source.size()-i);
-		Card sourceCard2 = source.get(source.size()-j);
-
-		Card card = sourceCard1;
-		tempList.add(card);
-		while ((sourceCard1.rankComparison(sourceCard2)== 1) && (sourceCard1.colorComparison(sourceCard2)==false) && source.size()>j) {
-
-			i++;
-			j++;
-			Card card1 = source.get(source.size()-i);
-			tempList.add(card1);
-
-
-
-			sourceCard1 = source.get(source.size()-i);
-			sourceCard2 = source.get(source.size()-j);
-		}
-
-		int count =tempList.size();
-		while(count>0){
-			source.remove();
-			count--;
-		}
-
-
-		while(tempList.size()>0){
-			source.add(tempList.get(0));
-			tempList.remove(0);
-
-		}
-			int counter = 0;
-			while (this.canMoveFrom(source)){
-				counter ++;
-				cards.add(source.remove());
+		if (source instanceof Tableau) {
+			tempList = source.getTempList(topCard);
+			for (Card c : tempList) {
+				cards.add(c);
+				source.remove(c);
 			}
-			if (counter >0) {
-				return true;
-			}
-			else {
-				return false;
-			}
+			return true;
+		}
+		else if (source instanceof FreeCell) {
+			sourceCard = source.peek();
+			cards.add(sourceCard);
+			source.remove(sourceCard);
+			return true;
+		}
+		else {
+			throw new IllegalArgumentException("Cannot remove from a home cell");
 		}
 
-	/**
+	}
+
+	 /**
 	 * This method tests if something can be moved from a tableau
 	 * @return true or false depending on if the conditions are satisfied
 	 */
 	public boolean canMoveFrom(CellInterface<Card> source){
-		boolean result = false;
-		if(super.canMoveFrom(source)) {
-			Card sourceCard = source.get(source.size()-1);
-			Card thisCard = this.get(this.size()-1);
+		Card sourceCard = source.peek();
+		Card thisCard = this.peek();
+
+		//cannot move from if there isn't a card in the source
+		if (sourceCard == null){
+			return false;
+		}
+		else{
+			if (source instanceof Tableau){
+				ArrayList<Card> tempList = source.getTempList(thisCard);
+				sourceCard = tempList.get(0);
+			}
 			if((sourceCard.rankComparison(thisCard)==1) && (sourceCard.colorComparison(thisCard)==false)){
 				return true;
 			}
@@ -129,9 +158,10 @@ public class Tableau extends AbstractCell<Card>{
 				return false;
 			}
 		}
-		else{
-			return false;
-		}
-	}
 
+		//can add to something currently empty
+		if (thisCard == null){
+			return true;
+			}
+		}
 }
