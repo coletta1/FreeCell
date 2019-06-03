@@ -46,7 +46,7 @@ public class CardPanel extends AbstractPanel{
     		g.drawRect(x, y, image.getIconWidth(), image.getIconHeight());
     	}
     	else{
-        Card currentCard = drawCell.get(0);
+        Card currentCard = drawCell.peek();
     		image = currentCard.getImage();
     		int x = (getWidth() - image.getIconWidth()) / 2;
     		int y = (getHeight() - image.getIconHeight()) / 2;
