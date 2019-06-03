@@ -63,9 +63,9 @@ abstract public class AbstractCell<Card> implements CellInterface<Card>{
           else{
             sourceCard = source.get(source.size()-1);
           }
-    			source.remove();
+    			source.remove(sourceCard);
           if (this instanceof HomeCell && !this.isEmpty()){
-            this.remove();
+            this.remove(sourceCard);
           }
           cards.add(sourceCard);
           success = true;
@@ -110,9 +110,8 @@ abstract public class AbstractCell<Card> implements CellInterface<Card>{
       throw new NullPointerException("You cannot remove from an empty list");
     }
     else{
-      Card card = cards.get(c);
       cards.remove(c);
-      return card;
+      return c;
     }
   }
 
@@ -131,12 +130,7 @@ abstract public class AbstractCell<Card> implements CellInterface<Card>{
    * @return cards.get(i) the item at the index i
    */
   public Card get(int i){
-    if(i<0){
-      return card;
-    }
-    else{
       return cards.get(i);
-    }
   }
   /**
    * Returns card at end of list
