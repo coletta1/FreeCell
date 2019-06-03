@@ -13,7 +13,7 @@
 import propackage.*;
 import java.util.*;
 
-public class Tableau extends AbstractCell<Card>{
+public class Tableau extends AbstractCell{
 	private CellInterface<Card> tcell;
 	 /**
    * Constructs a Tableau
