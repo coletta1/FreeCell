@@ -356,7 +356,7 @@ public class MainView extends JFrame{
  								CellInterface<Card> checkHome = game.homeGet(i);
 
  								if(checkHome.canMoveFrom(fromCell)){
- 									fromCell.remove();
+ 									fromCell.remove(fromCard);
  									checkHome.add(fromCard);
  								}
  }

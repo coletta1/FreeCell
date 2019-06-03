@@ -27,7 +27,12 @@ public class Tableau extends AbstractCell<Card>{
 	 * @return The item at the index i
 	 */
 	public Card get(int i){
-		return cards.get(i);
+		if (!this.isEmpty()){
+			return cards.get(i);
+		}
+		else{
+			return null;
+		}
 	}
 
 	public Card remove(Card c) {
