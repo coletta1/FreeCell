@@ -13,8 +13,7 @@
 import propackage.*;
 import java.util.*;
 
-public class Tableau extends AbstractCell{
-	private CellInterface<Card> tcell;
+public class Tableau extends AbstractCell<Card>{
 	 /**
    * Constructs a Tableau
 	 */
@@ -31,6 +30,10 @@ public class Tableau extends AbstractCell{
 		return cards.get(i);
 	}
 
+	public Card remove(Card c) {
+		cards.remove(c);
+		return c;
+	}
 	/**
    * Returns card at end of list/ bottom of tableau
    */
@@ -67,6 +70,7 @@ public class Tableau extends AbstractCell{
 	   }
 	 }
 
+
 	 public ArrayList<Card> getTempList(Card c){
 		 ArrayList<Card> tempList = new ArrayList<Card>();
 		 Card currentCard = null;
@@ -79,12 +83,12 @@ public class Tableau extends AbstractCell{
 			if (reversed.isEmpty()) {
 				reversed.add(nextCard);
 				currentCard = nextCard;
-				if (!(c == null) && (!nextCard.colorComparison(c)==false) && (nextCard.rankComparison(c)==-1)) {
+				if (!(c == null) && (!nextCard.colorComparison(c)==false) && (nextCard.rankComparison(c)==1)) {
 					break;
 				}
 			}
-			else if (((currentCard.rankComparison(nextCard)==-1)&&(currentCard.colorComparison(nextCard) == false))){
-				if ((!(c == null) && (!nextCard.rankComparison(c)==-1))&&(nextCard.colorComparison(c) == false)) {
+			else if (((currentCard.rankComparison(nextCard)==1)&&(currentCard.colorComparison(nextCard) == false))){
+				if ((!(c == null) && (nextCard.rankComparison(c)==1))&&(nextCard.colorComparison(c) == false)) {
 						reversed.add(nextCard);
 						break;
 				}
@@ -113,7 +117,9 @@ public class Tableau extends AbstractCell{
 		ArrayList<Card> tempList = new ArrayList<Card>();
 		Card sourceCard = null;
 		Card topCard = this.peek();
-
+		if (canMoveFrom(source) == false) {
+			return false;
+		}
 		if (source instanceof Tableau) {
 			tempList = source.getTempList(topCard);
 			for (Card c : tempList) {
@@ -123,13 +129,12 @@ public class Tableau extends AbstractCell{
 			return true;
 		}
 		else if (source instanceof FreeCell) {
-			sourceCard = source.peek();
 			cards.add(sourceCard);
 			source.remove(sourceCard);
 			return true;
 		}
 		else {
-			throw new IllegalArgumentException("Cannot remove from a home cell");
+			return false;
 		}
 
 	}
@@ -141,6 +146,11 @@ public class Tableau extends AbstractCell{
 	public boolean canMoveFrom(CellInterface<Card> source){
 		Card sourceCard = source.peek();
 		Card thisCard = this.peek();
+
+		//can add to something currently empty
+		if (thisCard == null){
+			return true;
+			}
 
 		//cannot move from if there isn't a card in the source
 		if (sourceCard == null){
@@ -158,10 +168,5 @@ public class Tableau extends AbstractCell{
 				return false;
 			}
 		}
-
-		//can add to something currently empty
-		if (thisCard == null){
-			return true;
-			}
-		}
+	}
 }
