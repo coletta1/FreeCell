@@ -156,6 +156,15 @@ public class Tableau extends AbstractCell<Card>{
 		if (thisCard == null){
 			return true;
 			}
+		if (sourceCard == thisCard){
+			for(int i =0;i<=3;i++){
+				CellInterface<Card> checkHome = homeCellList.getCell(i);
+
+				if(checkHome.canMoveFrom(source)){
+					source.remove(sourceCard);
+					checkHome.add(sourceCard);
+				}
+		}
 
 		//cannot move from if there isn't a card in the source
 		if (sourceCard == null){
@@ -174,4 +183,5 @@ public class Tableau extends AbstractCell<Card>{
 			}
 		}
 	}
+}
 }

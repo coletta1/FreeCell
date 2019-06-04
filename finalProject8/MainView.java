@@ -352,14 +352,7 @@ public class MainView extends JFrame{
  							if (fromPanel == panel) {
  								CellInterface<Card> fromCell = fromPanel.getCell();
  								Card fromCard = fromCell.get(fromCell.size()-1);
- 								for(int i =0;i<=3;i++){
- 								CellInterface<Card> checkHome = game.homeGet(i);
-
- 								if(checkHome.canMoveFrom(fromCell)){
- 									fromCell.remove(fromCard);
- 									checkHome.add(fromCard);
- 								}
- }
+ 								
  								fromPanel = null;
  							}
  							else {
