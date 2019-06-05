@@ -108,6 +108,8 @@ public class Game{
    */
   public boolean gameMove(CellInterface<Card> sourceCell, CellInterface<Card> destinationCell){
     boolean success = destinationCell.moveFrom(sourceCell);
+    System.out.println("sourceCell:" + sourceCell);
+    System.out.println("destinationCell:" + destinationCell);
     moveCounter++;
     return success;
   }
@@ -129,7 +131,7 @@ public class Game{
    *@return freecell at index i
    */
   public FreeCell freeGet(int i) {
-    return freeList.get(i);
+      return freeList.get(i);
   }
 
   /**
@@ -174,23 +176,16 @@ public class Game{
      * @return true or false depending on if a player is a winner.
      */
     public boolean hasWinner() {
-      int tableauCount = 0;
+      boolean isWon = true;
       for (Tableau tableau : tableauList) {
-        if (tableau.inOrder()) {
-          tableauCount += 1;
-        }
-        else {
-          return false;
-        }
-        if (tableauCount == 8) {
-          return true;
-        }
-        else {
-          return false;
-        }
+        if (!tableau.inOrder()) {
+          isWon = false;
+          }
       }
-      return false;
-    }
+      return isWon;
+
+      }
+    
 
 
 
