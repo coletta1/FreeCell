@@ -108,8 +108,6 @@ public class Game{
    */
   public boolean gameMove(CellInterface<Card> sourceCell, CellInterface<Card> destinationCell){
     boolean success = destinationCell.moveFrom(sourceCell);
-    System.out.println("sourceCell:" + sourceCell);
-    System.out.println("destinationCell:" + destinationCell);
     moveCounter++;
     return success;
   }
@@ -131,11 +129,7 @@ public class Game{
    *@return freecell at index i
    */
   public FreeCell freeGet(int i) {
-    if (!(freeList.isEmpty())){
-      return freeList.get(i);}
-    else {
-      return null;
-    }
+    return freeList.get(i);
   }
 
   /**

@@ -348,13 +348,20 @@ public class MainView extends JFrame{
  						if(fromPanel == null){
  							fromPanel = panel;
  						}
- 						else{
- 							if (fromPanel == panel) {
- 								CellInterface<Card> fromCell = fromPanel.getCell();
- 								Card fromCard = fromCell.get(fromCell.size()-1);
- 								
- 								fromPanel = null;
- 							}
+ // 						else{
+ // 							if (fromPanel == panel) {
+ // 								CellInterface<Card> fromCell = fromPanel.getCell();
+ // 								Card fromCard = fromCell.get(fromCell.size()-1);
+ // 								for(int i =0;i<=3;i++){
+ // 								CellInterface<Card> checkHome = game.homeGet(i);
+ //
+ // 								if(checkHome.canMoveFrom(fromCell)){
+ // 									fromCell.remove(fromCard);
+ // 									checkHome.add(fromCard);
+ // 								}
+ // }
+ // 								fromPanel = null;
+ // 							}
  							else {
  							CellInterface<Card> fromCell = fromPanel.getCell();
  							CellInterface<Card> currentCell = panel.getCell();
@@ -384,10 +391,9 @@ public class MainView extends JFrame{
  								}
  								}
  							}
- 							repaint();
+ 							//repaint();
  						}
 
 
 
  			}
-		}

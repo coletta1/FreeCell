@@ -56,16 +56,16 @@ public class Tableau extends AbstractCell<Card>{
 	  */
 	 public boolean inOrder(){
 	   boolean inOrder=false;
-	   if(cards.size() < 2){
+	   if(this.isEmpty()){
 	     inOrder = true;
 	     return inOrder;
 	   }
-	   else{
-	     for(int i =0;i<cards.size()-1;i++){
-	       Card currentCard = cards.get(i);
-	       Card nextCard = cards.get(i+1);
-	       if((currentCard.rankComparison(nextCard)==-1)&&(currentCard.colorComparison(nextCard) == false)){//should compare cards
-	         inOrder = true;
+	   Card currentCard = cards.get(0);
+		 for (Card card:cards){
+			 if (currentCard == card){}
+
+	     else if((card.rankComparison(currentCard)==-1)&&(card.colorComparison(currentCard) == false)){//should compare cards
+	         currentCard = card;
 	       }
 	       else{
 	         inOrder = false;
@@ -73,7 +73,7 @@ public class Tableau extends AbstractCell<Card>{
 	     }
 	     return inOrder;
 	   }
-	 }
+
 
 
 	 public ArrayList<Card> getTempList(Card c){
@@ -134,6 +134,7 @@ public class Tableau extends AbstractCell<Card>{
 			return true;
 		}
 		else if (source instanceof FreeCell) {
+			sourceCard = source.peek();
 			cards.add(sourceCard);
 			source.remove(sourceCard);
 			return true;
@@ -156,15 +157,6 @@ public class Tableau extends AbstractCell<Card>{
 		if (thisCard == null){
 			return true;
 			}
-		if (sourceCard == thisCard){
-			for(int i =0;i<=3;i++){
-				CellInterface<Card> checkHome = homeCellList.getCell(i);
-
-				if(checkHome.canMoveFrom(source)){
-					source.remove(sourceCard);
-					checkHome.add(sourceCard);
-				}
-		}
 
 		//cannot move from if there isn't a card in the source
 		if (sourceCard == null){
@@ -183,5 +175,4 @@ public class Tableau extends AbstractCell<Card>{
 			}
 		}
 	}
-}
 }
