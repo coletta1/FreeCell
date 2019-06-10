@@ -342,9 +342,9 @@ public class MainView extends JFrame{
 			 * This method analyzes the press of a panel.
 			 */
 			 public void panelPressed(AbstractPanel panel){
- 						if (game.hasLoser()) {
- 							JOptionPane.showMessageDialog(frame, "You have lost :(");
- 						}
+ 						// if (game.hasLoser()) {
+ 						// 	JOptionPane.showMessageDialog(frame, "You have lost :(");
+ 						// }
  						if(fromPanel == null){
  							fromPanel = panel;
  						}
@@ -385,10 +385,10 @@ public class MainView extends JFrame{
  								if(game.hasWinner()){
  									JOptionPane.showMessageDialog(frame, "You have won!");
  								}
- 								else if(game.hasLoser()){
- 									JOptionPane.showMessageDialog(frame, "You have no more moves");
- 									fromPanel = null;
- 								}
+ 								// else if(game.hasLoser()){
+ 								// 	JOptionPane.showMessageDialog(frame, "You have no more moves");
+ 								// 	fromPanel = null;
+ 								// }
  								}
  							}
  							//repaint();

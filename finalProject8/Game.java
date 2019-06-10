@@ -181,11 +181,13 @@ public class Game{
         if (!tableau.inOrder()) {
           isWon = false;
           }
+          System.out.println("in order: " + tableau.inOrder());
       }
+
       return isWon;
 
       }
-    
+
 
 
 

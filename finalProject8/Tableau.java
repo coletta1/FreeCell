@@ -58,13 +58,19 @@ public class Tableau extends AbstractCell<Card>{
 	   boolean inOrder=false;
 	   if(this.isEmpty()){
 	     inOrder = true;
+			 System.out.println("Order?: " + inOrder); //empty works correctly
 	     return inOrder;
 	   }
 	   Card currentCard = cards.get(0);
+		 System.out.println("current Card: " + currentCard);
 		 for (Card card:cards){
-			 if (currentCard == card){}
+			 System.out.println("Card: " + card);
+			 if (currentCard == card){
+				 inOrder = true;
+				 System.out.println("in order: " + inOrder);
+			 }
 
-	     else if((card.rankComparison(currentCard)==-1)&&(card.colorComparison(currentCard) == false)){//should compare cards
+	     else if((card.rankComparison(currentCard)==1)&&(card.colorComparison(currentCard) == false)){//should compare cards
 	         currentCard = card;
 	       }
 	       else{
