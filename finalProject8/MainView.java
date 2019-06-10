@@ -348,7 +348,8 @@ public class MainView extends JFrame{
  						if(fromPanel == null){
  							fromPanel = panel;
  						}
- // 						else{
+    				else if (fromPanel == panel) {
+							/* Way to implement the double click feature, can't figure out better way but am trying to move it to tableau*/
  // 							if (fromPanel == panel) {
  // 								CellInterface<Card> fromCell = fromPanel.getCell();
  // 								Card fromCard = fromCell.get(fromCell.size()-1);
@@ -360,8 +361,8 @@ public class MainView extends JFrame{
  // 									checkHome.add(fromCard);
  // 								}
  // }
- // 								fromPanel = null;
- // 							}
+  								fromPanel = null;
+							}
  							else {
  							CellInterface<Card> fromCell = fromPanel.getCell();
  							CellInterface<Card> currentCell = panel.getCell();
