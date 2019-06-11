@@ -37,85 +37,22 @@ public class MainView extends JFrame{
 	   * with card panels and new game button.
      */
     public MainView(){
+			final AppViewInformer view = new AppViewInformer();
+
 			Container pane = getContentPane();
 			pane.setLayout(new GridBagLayout());
 			pane.setBackground(new java.awt.Color(100, 166, 166));
-			GridBagConstraints c = new GridBagConstraints();
-			GridBagConstraints d = new GridBagConstraints();
+			GridBagConstraints constraints = new GridBagConstraints();
 			fromPanel = null;
 
+			//Creates labels and buttons
 			JLabel freeLabel = new JLabel("Free Cells");
-			d.fill = GridBagConstraints.NONE;
-			d.gridx = 1;
-			d.gridy = 0;
-			d.gridwidth = 4;
-			pane.add(freeLabel, d);
-
 			JLabel homeLabel = new JLabel("Home Cells");
-			d.fill = GridBagConstraints.NONE;
-			d.gridx = 5;
-			d.gridwidth = 4;
-			pane.add(homeLabel, d);
-
-			moveLabel = new JLabel("Moves: "+game.getMoveCounter());
-			d.fill = GridBagConstraints.NONE;
-			d.gridx =3;
-			d.gridwidth = 4;
-			pane.add(moveLabel, d);
-
-			game.dealCards();
-
-
-			view = new AppViewInformer();
-
-			c.gridx = 0;
-			c.gridy = 1;
-			// free cells
-			for(int i =0;i<4;i++){
-				CellInterface<Card> cell = game.freeGet(i);
-				CardPanel panel = new CardPanel(cell, view);
-				c.fill = GridBagConstraints.BOTH;
-				c.weightx = 1.0;
-				c.weighty = 1.0;
-				c.gridx++;
-				pane.add(panel, c);
-
-			}
-
-			//home cells
-			c.gridy = 1;
-			for(int i =4;i<8;i++){
-				CellInterface<Card> cell = game.homeGet(i-4);
-				CardPanel panel = new CardPanel(cell, view);
-				c.fill = GridBagConstraints.BOTH;
-				c.weightx = 1.0;
-				c.weighty = 1.0;
-				c.gridx++;
-				pane.add(panel, c);
-			}
-			c.gridx=0;
-			c.gridy = 2;
-			//Tableaux
-			for(int i =0;i<8;i++){
-				CellInterface<Card> cell = game.tableauGet(i);
-				LayeredPanel icon = new LayeredPanel(cell, view);
-					c.fill = GridBagConstraints.BOTH;
-					c.weightx = 1.0;
-					c.weighty = 1.0;
-					c.gridx++;
-
-					pane.add(icon, c);
-			}
-
+			moveLabel = new JLabel("Moves: " + game.getMoveCounter());
 			JButton newGame = new JButton("New Game");
-		  d.fill = GridBagConstraints.NONE;
-			d.weightx = 1.0;
-			d.weighty = -2.0;
-			d.gridwidth = 4;
-			d.gridheight = 1;
-			d.gridx = 1;
-			d.gridy = 5;
-
+			JButton saveGame = new JButton("Save");
+			JButton loadGame = new JButton("Load Game");
+			JButton changeBackground = new JButton("Change Background");
 
 			newGame.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
@@ -123,17 +60,6 @@ public class MainView extends JFrame{
 						repaint();
 				}
 			});
-
-			pane.add(newGame, d);
-
-			JButton saveGame = new JButton("Save");
-			d.fill = GridBagConstraints.NONE;
-			d.weightx = 1.0;
-			d.weighty = -2.0;
-			d.gridwidth = 4;
-			d.gridheight = 1;
-			d.gridx = 3;
-			d.gridy = 5;
 
 			saveGame.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
@@ -178,17 +104,6 @@ public class MainView extends JFrame{
 					}
 				}
 			});
-
-			pane.add(saveGame, d);
-
-			JButton loadGame = new JButton("Load Game");
-			d.fill = GridBagConstraints.NONE;
-			d.weightx = 1.0;
-			d.weighty = -2.0;
-			d.gridwidth = 4;
-			d.gridheight = 1;
-			d.gridx = 4;
-			d.gridy = 5;
 
 			loadGame.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
@@ -315,16 +230,70 @@ public class MainView extends JFrame{
 
 			});
 
-			pane.add(loadGame, d);
+			//Adds them to window
+			constraints.gridwidth = 4;
+			constraints.gridx = 0;
+			constraints.gridy = 0;
+			pane.add(freeLabel, constraints);
+			constraints.gridx=2;
+	    pane.add(moveLabel, constraints);
+			constraints.gridx = 4;
+			pane.add(homeLabel, constraints);
+	    constraints.gridx=0;
+	    constraints.gridy=3;
+	    constraints.gridwidth=2;
+	    pane.add(newGame, constraints);
+	    constraints.gridx=2;
+			pane.add(saveGame, constraints);
+	    constraints.gridx=4;
+			pane.add(loadGame, constraints);
+	    constraints.gridx=6;
+			pane.add(changeBackground, constraints);
 
-			JButton changeBackground = new JButton("Change Background");
-			d.fill = GridBagConstraints.NONE;
-			d.weightx = 1.0;
-			d.weighty = -2.0;
-			d.gridwidth = 4;
-			d.gridheight = 1;
-			d.gridx = 7;
-			d.gridy = 5;
+
+
+
+			game.dealCards();
+
+
+			constraints.gridx = 0;
+			constraints.gridy = 1;
+
+			// Free cells
+			constraints.fill = GridBagConstraints.BOTH;
+	    constraints.weightx = 50;
+	    constraints.weighty = 50;
+	    constraints.gridx = 0;
+    	constraints.gridy = 1;
+    	constraints.gridwidth = 1;
+			for(int i =0; i < 4; i++){
+				CellInterface<Card> cell = game.freeGet(i);
+				CardPanel panel = new CardPanel(cell, view);
+				pane.add(panel, constraints);
+				constraints.gridx++;
+			}
+
+			//Home cells
+			for(int i =0; i < 4; i++){
+				CellInterface<Card> cell = game.homeGet(i);
+				CardPanel panel = new CardPanel(cell, view);
+				pane.add(panel, constraints);
+				constraints.gridx++;
+			}
+
+
+			//Tableaux
+			constraints.gridx = 0;
+	    constraints.weighty = 100;
+	    constraints.weightx = 100;
+    	constraints.gridy = 2;
+			for(int i =0; i < 8; i++){
+				CellInterface<Card> cell = game.tableauGet(i);
+				LayeredPanel icon = new LayeredPanel(cell, view);
+					pane.add(icon, constraints);
+					constraints.gridx++;
+			}
+
 
 			changeBackground.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
@@ -333,10 +302,9 @@ public class MainView extends JFrame{
 				}
 			});
 
-			pane.add(changeBackground, d);
-
 
 		}
+
 		private class AppViewInformer implements ViewInformer{
 			/**
 			 * This method analyzes the press of a panel.
