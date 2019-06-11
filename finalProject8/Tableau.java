@@ -56,27 +56,31 @@ public class Tableau extends AbstractCell<Card>{
 	  */
 	 public boolean inOrder(){
 	   boolean inOrder=false;
-	   if(this.isEmpty()){
+	   if(this.isEmpty() || this.size() == 1){
 	     inOrder = true;
-			 System.out.println("Order?: " + inOrder); //empty works correctly
-	     return inOrder;
+			 System.out.println("\033[32;1mOrder?:\033[0m" + inOrder); //in order if empty or has one item
+			 return inOrder;
 	   }
 	   Card currentCard = cards.get(0);
-		 System.out.println("current Card: " + currentCard);
-		 for (Card card:cards){
-			 System.out.println("Card: " + card);
+		 for (Card card:cards){  //loop is fucked?
+			 System.out.println("\033[31;1mCard:\033[0m" + card);
 			 if (currentCard == card){
-				 inOrder = true;
-				 System.out.println("in order: " + inOrder);
+				 //inOrder = true;
+				 //System.out.println("in order: " + inOrder);
 			 }
 
 	     else if((card.rankComparison(currentCard)==1)&&(card.colorComparison(currentCard) == false)){//should compare cards
-	         currentCard = card;
+				 		System.out.println("\033[35;1mPartial\033[0m" + currentCard);  //prints pink
+					 currentCard = card;
+					 System.out.println("\033[35;1mPartial\033[0m" + currentCard);  //prints pink
+					 inOrder = true;
 	       }
 	       else{
 	         inOrder = false;
+					 return inOrder;
 	       }
 	     }
+			 System.out.println("\033[32;1mOrder?:\033[0m" + inOrder); //in order if empty or has one item
 	     return inOrder;
 	   }
 
