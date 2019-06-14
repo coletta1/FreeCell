@@ -47,12 +47,36 @@ public class MainView extends JFrame{
 
 			//Creates labels and buttons
 			JLabel freeLabel = new JLabel("Free Cells");
+			constraints.gridwidth = 4;
+			constraints.gridx = 0;
+			constraints.gridy = 0;
+			pane.add(freeLabel, constraints);
+
 			JLabel homeLabel = new JLabel("Home Cells");
+			constraints.gridx = 4;
+			pane.add(homeLabel, constraints);
 			moveLabel = new JLabel("Moves: " + game.getMoveCounter());
+			constraints.gridx=2;
+	    pane.add(moveLabel, constraints);
+
 			JButton newGame = new JButton("New Game");
+			constraints.gridx=1;
+	    constraints.gridy=3;
+	    constraints.gridwidth=4;
+			//constraints.fill = GridBagConstraints.HORIZONTAL;
+	    pane.add(newGame, constraints);
+
 			JButton saveGame = new JButton("Save");
+			constraints.gridx=2;
+			//pane.add(saveGame, constraints);
+
 			JButton loadGame = new JButton("Load Game");
+			constraints.gridx=3;
+			//pane.add(loadGame, constraints);
+
 			JButton changeBackground = new JButton("Change Background");
+			constraints.gridx=3;
+			pane.add(changeBackground, constraints);
 
 			newGame.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
@@ -229,26 +253,6 @@ public class MainView extends JFrame{
 
 
 			});
-
-			//Adds them to window
-			constraints.gridwidth = 4;
-			constraints.gridx = 0;
-			constraints.gridy = 0;
-			pane.add(freeLabel, constraints);
-			constraints.gridx=2;
-	    pane.add(moveLabel, constraints);
-			constraints.gridx = 4;
-			pane.add(homeLabel, constraints);
-	    constraints.gridx=0;
-	    constraints.gridy=3;
-	    constraints.gridwidth=2;
-	    pane.add(newGame, constraints);
-	    constraints.gridx=2;
-			pane.add(saveGame, constraints);
-	    constraints.gridx=4;
-			pane.add(loadGame, constraints);
-	    constraints.gridx=6;
-			pane.add(changeBackground, constraints);
 
 
 
